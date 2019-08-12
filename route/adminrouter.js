@@ -1,4 +1,6 @@
 var express = require('express');
+var fs = require('fs');
+
 const router = express.Router();
 
 var pdct_array = [
@@ -45,5 +47,31 @@ module.exports = router;
 router.get("/newentries",function(req,res){
     res.render("newentries",{
         products:pdct_array
+    });
+});
+router.post("/addnewpct",function(req,res){
+    var pdtname = req.params.product_name;
+    var pdtprice = req.params.product_price;
+    var pdtimage = req.params.product_image;
+    var pdttype = req.params.product_type;
+    var obj = {
+        table:[]
+    }
+    fs.readFile("newproducts.json","utf-8",(err,buf)=>{
+        if(err){
+            console.log(err);
+        }else{
+            var obj = JSON.parse(buf);
+            obj.table.push({ptitle:pdtname,pimage:pdtimage,pprice:pdtprice,ptype:pdttype});
+            var json = JSON.stringify(obj);
+            fs.writeFile("newproducts.json",json,"utf-8",(err)=>{
+                if(err){
+                    console.log(err);
+                }else{
+                    console.log("successfully written");
+                }
+            });
+        }
+
     });
 });
