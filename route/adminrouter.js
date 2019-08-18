@@ -1,8 +1,39 @@
 var express = require('express');
-var fs = require('fs');
+var bodyparser = require('body-parser');
+var path = require('path');
+var mongoose = require('mongoose');
 
+//var url = "mongodb+srv://renjitasony:mangoHONET@cluster0-y18tu.mongodb.net/footprint?retryWrites=true&w=majority";
+ var url = "mongodb://localhost/lfootprint";
 const router = express.Router();
+var product = require('../model/product');
+var multer = require('multer');
 
+router.use(bodyparser.urlencoded({extended:true}));
+var storage = multer.diskStorage({
+    destination:function(req,file,cb){
+        cb(null,path.join(__dirname,'/../public/uploads/'));          
+    },
+    filename:function(req,file,cb){
+        // let fileExtension = file.mimetype.split("/").pop();        
+        cb(null,"image_"+req.body.productid+".jpg");
+    },
+    onFileUploadStart:function(file){
+        console.log("starting"+file.filename);
+    },
+    onFileUploadComplete:function(file){
+        console.log("completed"+file.filename);
+    }
+});
+ var upload = multer({storage:storage});
+//var upload = multer({dest:path.join(__dirname,'/public/uploads')});
+
+mongoose.connect(url,{useNewUrlParser:true},(err)=>{
+    if(err) throw err;
+    else{
+        console.log("db connected");
+    }
+});
 var pdct_array = [
     {
         "ptitle":"Wild West Hoodie",
@@ -49,29 +80,30 @@ router.get("/newentries",function(req,res){
         products:pdct_array
     });
 });
-router.post("/addnewpct",function(req,res){
-    var pdtname = req.params.product_name;
-    var pdtprice = req.params.product_price;
-    var pdtimage = req.params.product_image;
-    var pdttype = req.params.product_type;
-    var obj = {
-        table:[]
-    }
-    fs.readFile("newproducts.json","utf-8",(err,buf)=>{
-        if(err){
-            console.log(err);
-        }else{
-            var obj = JSON.parse(buf);
-            obj.table.push({ptitle:pdtname,pimage:pdtimage,pprice:pdtprice,ptype:pdttype});
-            var json = JSON.stringify(obj);
-            fs.writeFile("newproducts.json",json,"utf-8",(err)=>{
-                if(err){
-                    console.log(err);
-                }else{
-                    console.log("successfully written");
-                }
-            });
+router.get("/",function(req,res){
+    product.find({product_list:"A"},(err,result)=>{
+        if(err) throw err;
+        else{
+            res.render("admin",{pdtlist:result});
         }
-
     });
+});
+router.post("/addnewpdct",upload.single('productimage'),function(req,res){
+    console.log("vanne");
+    var pct = new product();
+    var pdctId = req.body.productid;
+    pct.product_id = pdctId;
+    pct.product_title = req.body.productname;
+    pct.product_image = "image_"+pdctId+".jpg";
+    pct.product_price = req.body.productprice;
+    pct.product_type = req.body.producttype;
+    pct.product_size = req.body.productsize;
+    pct.save((err)=>{
+        if(err) throw err;
+        else{
+            console.log("Added product #"+req.body.productid);
+        }
+    });
+    res.redirect("/admin");
+    // res.send("Success");
 });

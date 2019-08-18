@@ -1,9 +1,10 @@
 var express = require('express');
 var path = require('path');
 var bodyparser = require('body-parser');
-var multer = require('multer');
-var fs = require('fs');
+
 var adminrouter = require('./route/adminrouter');
+var product = require('./model/product');
+
 
 function authenticate(){
     console.log("authenticated");
@@ -28,8 +29,11 @@ app.post("/adminoruser",function(req,res){
     authenticate();
     var uname = req.body.uname;
     if(uname.includes("@footprint.com")){
-        res.render("admin");
+       res.redirect("/admin");        
     }else{
         res.render("index");
     }
+});
+app.get("/view/:image",function(req,res){    
+    res.sendFile(__dirname+"/public/uploads/"+req.params.image);
 });
