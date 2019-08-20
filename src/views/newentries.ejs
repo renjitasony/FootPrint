@@ -101,24 +101,7 @@
 
   
      
-    <div class="site-blocks-cover overlay" style="background-image: url(https://img.freepik.com/free-photo/shiny-vintage-leather-male-shoes_1203-6453.jpg?size=626&ext=jpg);" data-aos="fade" data-stellar-background-ratio="0.5">
-      <div class="container">
-        <div class="row align-items-center justify-content-center">
-
-          <div class="col-md-12" data-aos="fade-up" data-aos-delay="400">
-                        
-            <div class="row mb-4">
-              <div class="col-md-7">
-                <h1>Shop With Us</h1>
-                <p class="mb-5 lead"><h3 style="color: antiquewhite;">Finding your perfect shoes..</h3></p>                
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>  
-
-
+    
     
     <div class="site-section" id="products-section">
       <div class="container">
@@ -128,87 +111,16 @@
             <h2 class="section-title mb-3">Our Products</h2>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae nostrum natus excepturi fuga ullam accusantium vel ut eveniet aut consequatur laboriosam ipsam.</p>             
           </div>          
-        </div>
-        <div class="row align-items-center">
-          <div class="col-6 text-left">              
-              <!-- <a href="#" style="font-size: 40px; text-decoration: underline;">
-                <i class="fa fa-plus" aria-hidden="true"></i>
-              </a>               -->
-              <button type="button" class="btn btn-default btn-number" style="font-size: 30px;" data-toggle="modal" data-target="#exampleModal">
-                <span class="glyphicon glyphicon-plus"></span>
-              </button>
-              <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                  <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">New Product</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                      </div>
-                      <div class="modal-body">
-                        <form action="/admin/addnewpdct" method="POST">
-                          <div class="form-group">
-                            <label for="product-name" class="col-form-label">Title:</label>
-                            <input type="text" class="form-control" id="product-name" name="product-name">
-                          </div>
-                          <div class="form-group">
-                            <label for="product-price" class="col-form-label">Price:</label>
-                            <input type="text" class="form-control" id="product-price" name="product-price">
-                          </div>
-                          <div class="form-group">
-                              <label for="product-image" class="col-form-label">Upload Image:</label>
-                              <input type="file"  class="form-control" id="product-image" name="product-image">
-                          </div>
-                          <div class="form-group">
-                              <label for="product-type" class="col-form-label">Type:</label>
-                              <select name="product-type" id="product-type" class="mdb-select md-form">
-                                <option value="men">Men</option>
-                                <option value="women">Women</option>
-                                <option value="kids">Kids</option>
-                              </select>
-                             
-                              <button type="button" class="btn btn-primary" id="addpdct">Add</button>
-                            </div>
-                        </form>
-                      </div>                     
-                    </div>
-                  </div>
-                </div>
-              <hr>
-          </div>
-        </div>
-        <div class="row">
+        </div>        
+                 
           <div class="col-lg-4 col-md-6 mb-5">
             <div class="product-item">
               <figure>
-                <img src="images/model_1_bg.jpg" alt="Image" class="img-fluid">
+                <img src="http://localhost:7634/viewimage/<%= product.product_image %>" alt="Image" class="img-fluid" style="height:350px; width: 350px; ">
               </figure>
               <div class="px-4">
-                <h3><a href="#">Wild West Hoodie</a></h3>
-                <div class="mb-3">
-                  <span class="meta-icons mr-3"><a href="#" class="mr-2"><span class="icon-star text-warning"></span></a> 5.0</span>
-                  <span class="meta-icons wishlist"><a href="#" class="mr-2"><span class="icon-heart"></span></a> 29</span>
-                </div>
-                <p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
-                <div>
-                  <a href="#" class="btn btn-black mr-1 rounded-0">Move</a>
-                  <a href="#" class="btn btn-black btn-outline-black ml-1 rounded-0">View</a>
-                  <a href="#" class="btn btn-black btn-outline-black ml-1 rounded-0">
-                        <i class="fa fa-trash" aria-hidden="true"></i>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <% for(var i=0; i< products.length; i++){ %>
-          <div class="col-lg-4 col-md-6 mb-5">
-            <div class="product-item">
-              <figure>
-                <img src="<%= products[i].pimage %>" alt="Image" class="img-fluid" style="height:350px; width: 350px; ">
-              </figure>
-              <div class="px-4">
-                <h3><a href="#"><%= products[i].ptitle %></a></h3>
+                <h3><a href="#"><%= product.product_title %></a></h3>
+                <h1><%= product.product_id %></h1>
                 <div class="mb-3">
                   <span class="meta-icons mr-3"><a href="#" class="mr-2"><span class="icon-star text-warning"></span></a> 5.0</span>
                   <span class="meta-icons wishlist active"><a href="#" class="mr-2"><span class="icon-heart"></span></a> 29</span>
@@ -217,14 +129,14 @@
                 <div>
                   <a href="#" class="btn btn-black mr-1 rounded-0">Cart</a>
                   <a href="#" class="btn btn-black btn-outline-black ml-1 rounded-0">View</a>
-                  <a href="#" class="btn btn-black btn-outline-black ml-1 rounded-0">
+                  <a href="/admin/delete/<%= product.product_id %>" class="btn btn-black btn-outline-black ml-1 rounded-0">
                         <i class="fa fa-trash" aria-hidden="true"></i>
                   </a>
                 </div>
               </div>
             </div>
           </div>
-          <% } %>
+          
 
           
           
@@ -232,83 +144,6 @@
       </div>
     </div>
     
-    <div class="site-blocks-cover inner-page-cover overlay get-notification"  style="background-image: url(images/hero_2.jpg); background-attachment: fixed;" data-aos="fade">
-      <div class="container">
-
-        <div class="row align-items-center justify-content-center">
-          <form class="col-md-7" method="post">
-            <h2>Get notified on each updates.</h2>
-            <div class="d-flex mb-4">
-              <input type="text" class="form-control rounded-0" placeholder="Enter your email address">
-              <input type="submit" class="btn btn-white btn-outline-white rounded-0" value="Subscribe">
-            </div>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat commodi veniam doloremque ducimus tempora.</p>
-          </form>
-        </div>
-
-      </div>
-    </div>
-
-    <div class="site-section bg-light">
-      <div class="container">
-        <div class="row mb-5 justify-content-center">
-          <div class="col-md-6 text-center">
-            <h3 class="section-sub-title">Awesome Products</h3>
-            <h2 class="section-title mb-3">Featured Products</h2>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae nostrum natus excepturi fuga ullam accusantium vel ut eveniet aut consequatur laboriosam ipsam.</p>
-          </div>
-        </div>
-        <div class="bg-white py-4 mb-4">
-          <div class="row mx-4 my-4 product-item-2 align-items-start">
-            <div class="col-md-6 mb-5 mb-md-0">
-              <img src="images/model_1_bg.jpg" alt="Image" class="img-fluid">
-            </div>
-           
-            <div class="col-md-5 ml-auto product-title-wrap">
-              <span class="number">01.</span>
-              <h3 class="text-black mb-4 font-weight-bold">About This Product</h3>
-              <p class="mb-4">Et tempora id nostrum saepe amet doloribus deserunt totam officiis cupiditate asperiores quasi accusantium voluptatum dolorem quae sapiente voluptatem ratione odio iure blanditiis earum fuga molestiae alias dicta perferendis inventore!</p>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus soluta assumenda sed optio, error at?</p>
-              
-              <div class="mb-4"> 
-                <h3 class="text-black font-weight-bold h5">Price:</h3>
-                <div class="price"><del class="mr-2">$269.00</del> $69.00</div>
-              </div>
-              <p>
-                <a href="#" class="btn btn-black btn-outline-black rounded-0 d-block mb-2 mb-lg-0 d-lg-inline-block">View Details</a>
-                <a href="#" class="btn btn-black rounded-0 d-block d-lg-inline-block">Add To Cart</a>
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div class="bg-white py-4">
-          <div class="row mx-4 my-4 product-item-2 align-items-start">
-            <div class="col-md-6 mb-5 mb-md-0 order-1 order-md-2">
-              <img src="images/product_1_bg.jpg" alt="Image" class="img-fluid">
-            </div>
-           
-            <div class="col-md-5 mr-auto product-title-wrap order-2 order-md-1">
-              <span class="number">02.</span>
-              <h3 class="text-black mb-4 font-weight-bold">About This Product</h3>
-              <p class="mb-4">Et tempora id nostrum saepe amet doloribus deserunt totam officiis cupiditate asperiores quasi accusantium voluptatum dolorem quae sapiente voluptatem ratione odio iure blanditiis earum fuga molestiae alias dicta perferendis inventore!</p>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus soluta assumenda sed optio, error at?</p>
-              
-              <div class="mb-4"> 
-                <h3 class="text-black font-weight-bold h5">Price:</h3>
-                <div class="price"><del class="mr-2">$269.00</del> $69.00</div>
-              </div>
-              <p>
-                <a href="#" class="btn btn-black btn-outline-black rounded-0 d-block mb-2 mb-lg-0 d-lg-inline-block">View Details</a>
-                <a href="#" class="btn btn-black rounded-0 d-block d-lg-inline-block">Add To Cart</a>
-              </p>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
      
     <footer class="site-footer bg-white">
       <div class="container">

@@ -34,6 +34,6 @@ app.post("/adminoruser",function(req,res){
         res.render("index");
     }
 });
-app.get("/view/:image",function(req,res){    
+app.get("/viewimage/:image",function(req,res){    
     res.sendFile(__dirname+"/public/uploads/"+req.params.image);
 });

@@ -104,6 +104,23 @@ router.post("/addnewpdct",upload.single('productimage'),function(req,res){
             console.log("Added product #"+req.body.productid);
         }
     });
-    res.redirect("/admin");
-    // res.send("Success");
-});
+    res.redirect("/admin#products-section");
+   });
+   router.get("/view/:id",function(req,res){
+    product.findOne({product_id:req.params.id},(err,result)=>{
+        if(err) throw err;
+        else{
+            console.log(result);
+            res.render("newentries",{product:result});
+        }
+    });
+    router.get("/delete/:id",function(req,res){
+        product.deleteOne({product_id:req.params.id},(err)=>{
+            if(err) throw err;
+            else{
+                console.log("deleted");
+                res.redirect("/admin");
+            }
+        })
+    })
+   });
