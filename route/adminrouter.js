@@ -102,9 +102,9 @@ router.post("/addnewpdct",upload.single('productimage'),function(req,res){
         if(err) throw err;
         else{
             console.log("Added product #"+req.body.productid);
+            res.redirect("/admin#products-section");
         }
-    });
-    res.redirect("/admin#products-section");
+    });    
    });
    router.get("/view/:id",function(req,res){
     product.findOne({product_id:req.params.id},(err,result)=>{
