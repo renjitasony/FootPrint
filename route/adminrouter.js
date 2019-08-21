@@ -4,7 +4,7 @@ var path = require('path');
 var mongoose = require('mongoose');
 
 //var url = "mongodb+srv://renjitasony:mangoHONET@cluster0-y18tu.mongodb.net/footprint?retryWrites=true&w=majority";
- var url = "mongodb://localhost/lfootprint";
+var url = "mongodb://localhost/lfootprint";
 const router = express.Router();
 var product = require('../model/product');
 var multer = require('multer');
@@ -12,18 +12,13 @@ var multer = require('multer');
 router.use(bodyparser.urlencoded({extended:true}));
 var storage = multer.diskStorage({
     destination:function(req,file,cb){
+        console.log("in destination");
         cb(null,path.join(__dirname,'/../public/uploads/'));          
     },
     filename:function(req,file,cb){
         // let fileExtension = file.mimetype.split("/").pop();        
         cb(null,"image_"+req.body.productid+".jpg");
-    },
-    onFileUploadStart:function(file){
-        console.log("starting"+file.filename);
-    },
-    onFileUploadComplete:function(file){
-        console.log("completed"+file.filename);
-    }
+    },    
 });
  var upload = multer({storage:storage});
 //var upload = multer({dest:path.join(__dirname,'/public/uploads')});
