@@ -18,7 +18,7 @@ app.use(express.static(path.join(__dirname,"/public")));
 app.use(bodyparser.urlencoded({extended:true}));
 app.use("/admin",adminrouter);
 
-app.listen(7634,function(req,res){
+app.listen(process.env.PORT || 7634, (req,res)=>{
     console.log("Server started at 7634");
 });
 
