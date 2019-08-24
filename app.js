@@ -23,6 +23,7 @@ app.listen(process.env.PORT || 7634, (req,res)=>{
 });
 
 app.get("/",function(req,res){
+    console.log("TRYING TO CONNECT TO DB");
     res.redirect("/admin");
     //res.render("login");
 });
