@@ -82,7 +82,7 @@ router.get("/",function(req,res){
     product.find({product_list:"A"},(err,result)=>{
         if(err) throw err;
         else{
-            res.render("admin",{pdtlist:pdct_array});
+            res.render("admin",{pdtlist:result});
         }
     });
 });
