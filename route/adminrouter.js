@@ -79,12 +79,12 @@ router.get("/newentries",function(req,res){
     });
 });
 router.get("/",function(req,res){
-    // product.find({product_list:"A"},(err,result)=>{
-    //     if(err) throw err;
-    //     else{
+    product.find({product_list:"A"},(err,result)=>{
+        if(err) throw err;
+        else{
             res.render("admin",{pdtlist:pdct_array});
-    //     }
-    // });
+        }
+    });
 });
 router.post("/addnewpdct",upload.single('productimage'),function(req,res){
     console.log("vanne");
