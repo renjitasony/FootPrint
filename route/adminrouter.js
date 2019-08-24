@@ -4,7 +4,8 @@ var path = require('path');
 var mongoose = require('mongoose');
 
 //var url = "mongodb+srv://renjitasony:mangoHONET@cluster0-y18tu.mongodb.net/footprint?retryWrites=true&w=majority";
-var url = "mongodb://localhost/lfootprint";
+//var url = "mongodb://localhost/lfootprint";
+var url = "mongodb+srv://sonyrenjita:mangoHONET@cluster0-sbret.mongodb.net/FootPrint?retryWrites=true&w=majority"
 const router = express.Router();
 var product = require('../model/product');
 var multer = require('multer');
