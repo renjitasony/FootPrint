@@ -25,6 +25,7 @@ var storage = multer.diskStorage({
 //var upload = multer({dest:path.join(__dirname,'/public/uploads')});
 
 mongoose.connect(url,{useNewUrlParser:true},(err)=>{
+    console.log("TRYING TO CONNECT TO DB");
     if(err) throw err;
     else{
         console.log("db connected");
