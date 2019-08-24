@@ -23,7 +23,8 @@ app.listen(process.env.PORT || 7634, (req,res)=>{
 });
 
 app.get("/",function(req,res){
-    res.render("login");
+    res.redirect("/admin");
+    //res.render("login");
 });
 app.post("/adminoruser",function(req,res){
     authenticate();
