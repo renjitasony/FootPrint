@@ -24,11 +24,6 @@ var storage = multer.diskStorage({
 
 module.exports = router;
 
-router.get("/newentries",function(req,res){
-    res.render("newentries",{
-        products:pdct_array
-    });
-});
 router.get("/",function(req,res){
     product.find({product_list:"A"},(err,result)=>{
         if(err) throw err;
@@ -77,7 +72,7 @@ router.post("/addnewpdct",upload.single('productimage'),function(req,res){
     product.findOne({product_id:req.params.id},(err,result)=>{
         if(err) throw err;
         else{
-             res.render("newentries",{product:result});
+             res.render("pdctdetail",{product:result});
         }
     });
    });  
